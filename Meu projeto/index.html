@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Portfólio Punk ⚡</title>
+<style>
+  /* Reset básico */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  body {
+    background: #1a001a; /* preto roxo escuro */
+    color: #e0d9ff; /* branco levemente roxo */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px;
+  }
+
+  main {
+    background: #2a002a;
+    border: 3px solid #9900cc;
+    border-radius: 15px;
+    padding: 25px 40px 40px;
+    width: 450px;
+    box-shadow: 0 0 20px #9900cc;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+    color: #cc66ff;
+    text-shadow: 1px 1px 4px #330033;
+    letter-spacing: 2px;
+  }
+
+  label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 700;
+    color: #cc99ff;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+  }
+
+  input[type="text"],
+  input[type="url"],
+  textarea {
+    width: 100%;
+    padding: 10px 15px;
+    margin-top: 7px;
+    border: 2px solid #660066;
+    border-radius: 6px;
+    background: #330033;
+    color: #fff;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+
+  input[type="text"]:focus,
+  input[type="url"]:focus,
+  textarea:focus {
+    border-color: #cc66ff;
+    outline: none;
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 70px;
+  }
+
+  button {
+    margin-top: 25px;
+    width: 100%;
+    padding: 12px;
+    background: #9900cc;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    color: #fff;
+    cursor: pointer;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    box-shadow: 0 0 8px #cc66ff;
+    transition: background 0.3s ease;
+  }
+
+  button:hover {
+    background: #cc66ff;
+    color: #330033;
+  }
+
+  #portfolioResult {
+    margin-top: 30px;
+    background: #330033;
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #cc66ff;
+    box-shadow: 0 0 15px #cc66ff;
+  }
+
+  #portfolioResult h2 {
+    color: #ff99ff;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    letter-spacing: 1.5px;
+  }
+
+  #portfolioResult h3 {
+    color: #d966ff;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  #portfolioResult p {
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+
+  #portfolioResult a {
+    display: inline-block;
+    margin-top: 15px;
+    background: #cc66ff;
+    color: #330033;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: 0 0 6px #9900cc;
+    transition: background 0.3s ease;
+  }
+
+  #portfolioResult a:hover {
+    background: #9900cc;
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Portfólio Punk ⚡</h1>
+  <form id="portfolioForm">
+    <label for="nome">Nome</label>
+    <input type="text" id="nome" placeholder="Seu nome rebelde" required />
+
+    <label for="profissao">Profissão</label>
+    <input type="text" id="profissao" placeholder="Seu ofício punk" required />
+
+    <label for="bio">Bio</label>
+    <textarea id="bio" placeholder="Fale um pouco sobre você..." required></textarea>
+
+    <label for="habilidades">Habilidades (separe por vírgula)</label>
+    <input type="text" id="habilidades" placeholder="Ex: HTML, CSS, JS, Rock'n'roll" required />
+
+    <label for="projetos">Projetos (descrição breve, que mais se orgulha)</label>
+    <textarea id="projetos" placeholder="Conte sobre seus projetos..." required></textarea>
+
+    <label for="github">Link do seu GitHub (opcional)</label>
+    <input type="url" id="github" placeholder="https://github.com/seuusuario" />
+
+    <button type="submit">Gerar Portfólio</button>
+  </form>
+
+  <div id="portfolioResult" aria-live="polite"></div>
+</main>
+
+<script>
+  // Captura o formulário e a área de resultado
+  const form = document.getElementById('portfolioForm');
+  const resultDiv = document.getElementById('portfolioResult');
+
+  // Escuta o envio do formulário
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Pega valores dos campos
+    const nome = document.getElementById('nome').value.trim();
+    const profissao = document.getElementById('profissao').value.trim();
+    const bio = document.getElementById('bio').value.trim();
+    const habilidades = document.getElementById('habilidades').value.trim();
+    const projetos = document.getElementById('projetos').value.trim();
+    const githubInput = document.getElementById('github').value.trim();
+
+    // Cria link do GitHub customizado ou automático
+    const githubLink = githubInput
+      ? githubInput
+      : `https://github.com/${nome.toLowerCase().replace(/\s+/g, '')}`;
+
+    // Monta o conteúdo HTML com estilo punk
+    const html = `
+      <h2>${nome || 'Anônimo Punk'}</h2>
+      <h3>${profissao || 'Artista da Rebeldia'}</h3>
+      <p><strong>Bio:</strong> ${bio || 'Uma alma que vive no caos criativo, movida a riffs e código.'}</p>
+      <p><strong>Habilidades:</strong> ${habilidades ? habilidades.split(',').map(h => h.trim()).join(' · ') : 'Indomável em várias frentes.'}</p>
+      <p><strong>Projetos:</strong><br>${projetos ? projetos.replace(/\n/g, '<br>') : 'Projetos explosivos e secretos.'}</p>
+      <a href="${githubLink}" target="_blank" rel="noopener" aria-label="Link para GitHub de ${nome}">Confira meu GitHub aqui ⚡</a>
+    `;
+
+    // Exibe no resultado
+    resultDiv.innerHTML = html;
+
+    // Scroll suave para o resultado
+    resultDiv.scrollIntoView({ behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
